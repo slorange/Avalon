@@ -6,6 +6,8 @@ using System.Linq;
 using Avalonia.Markup.Xaml;
 using Avalon.ViewModels;
 using Avalon.Views;
+using System;
+using System.Diagnostics;
 
 namespace Avalon;
 
@@ -18,14 +20,18 @@ public partial class App : Application
 
     public override void OnFrameworkInitializationCompleted()
     {
+		Debug.WriteLine("test Syl OnFrameworkInitializationCompleted");
+
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             // Avoid duplicate validations from both Avalonia and the CommunityToolkit. 
             // More info: https://docs.avaloniaui.net/docs/guides/development-guides/data-validation#manage-validationplugins
             DisableAvaloniaDataAnnotationValidation();
             desktop.MainWindow = new MainWindow
-            {
-                DataContext = new MainViewModel()
+			{
+				Width = 1250,
+				Height = 850,
+				DataContext = new MainViewModel()
             };
         }
         else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)

@@ -11,7 +11,6 @@ using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
 using Avalonia.Threading;
-using static System.Net.Mime.MediaTypeNames;
 using static Avalon.Game.Board;
 using Point = Avalon.Game.Point;
 
@@ -19,15 +18,13 @@ namespace Avalon.Controls;
 
 public partial class ChessControl : Control
 {
-	private Board board;
+	public Board board;
 	private bool settings = false;
 	private List<ButtonArea> buttons = new();
-	private readonly SolidColorBrush strokeBrush = new(Colors.Black);
 	private readonly IPen strokePen = new Pen(Brushes.Black, 4);
 
 	private const int GAP = 10;
 	private const double PIECE_GAP = 0.1;
-	private const int STROKE_WIDTH = 8;
 	private readonly Color DARK_COLOR = Color.FromRgb(150, 100, 50);
 	private readonly Color LIGHT_COLOR = Color.FromRgb(250, 200, 100);
 	private readonly Color VALID_COLOR = Color.FromRgb(50, 200, 200);
@@ -359,16 +356,21 @@ public partial class ChessControl : Control
 		board.DrawBoard();
 	}
 
-	private void SetMode(bool ai)
+	public void SetMode(bool ai)
 	{
 		if (board.AIOn == ai) return;
 		board = Board.StartNewGame(ai);
 	}
 
-	private void SetMode(GameMode mode)
+	public void SetMode(GameMode mode)
 	{
 		if (board.Mode == mode) return;
 		board = StartNewGame(mode);
+	}
+
+	public void SetMode(GameMode mode, bool ai)
+	{
+		board = StartNewGame(ai, mode);
 	}
 
 	private void HideSettings()

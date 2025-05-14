@@ -13,9 +13,23 @@
 		<vm:MainViewModel />
 	</Design.DataContext>
 
-	<StackPanel>
-		<TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-		<controls:ChessControl Width="600" Height="600"/>
+	
+	<StackPanel Orientation="Horizontal" >
+		<Grid Margin="10" RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="Auto,150" >
+			<!-- Game Mode -->
+			<Label Grid.Row="0" Grid.Column="0" Content="Game:" VerticalAlignment="Center" Margin="5" />
+			<ComboBox Grid.Row="0" Grid.Column="1" x:Name="GameModeSelect" Width="200" Margin="5" />
+
+			<!-- AI Mode -->
+			<Label Grid.Row="1" Grid.Column="0" Content="AI:" VerticalAlignment="Center" Margin="5" />
+			<ComboBox Grid.Row="1" Grid.Column="1" x:Name="AIModeSelect" Width="200" Margin="5" />
+
+			<!-- Restart Button -->
+			<Button Grid.Row="2" Grid.Column="1" Content="Restart" Width="200" Click="OnRestartClicked" HorizontalContentAlignment="Center"  Margin="5" />
+		</Grid>
+		
+		<!--<TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>-->
+		<controls:ChessControl x:Name="chessControl" Width="600" Height="600" Margin="100" />
 		<!--<Image Source="avares://Avalon/Assets/Pieces/ba.png" Width="50" Height="50"/>-->
 	</StackPanel>
 </UserControl>

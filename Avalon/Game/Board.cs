@@ -28,6 +28,7 @@ public class Board
 	public Point? GhostLocation = null;
 	public bool Test = true;
 	public char Turn;
+	public bool GameOn = true;
 
 	public int AILEVEL = 2;
 
@@ -47,7 +48,7 @@ public class Board
 	public void SetSize(int s)
 	{
 		SIZE = s;
-		ui?.ChangeBoardSize(s); // Assuming you implement this in ChessControl later
+		ui?.ChangeBoardSize(s);
 
 		board = new Piece[s, s];
 		dependents = new LinkedList<Dependent>[s, s];
@@ -135,6 +136,7 @@ public class Board
 		}
 		else  //second click
 		{
+			//if (!GameOn) return;
 			PlayerMove? m = PlayerMove.GetFirstMove(ValidMoves, p);
 			if (m == null) return;
 
@@ -283,6 +285,7 @@ public class Board
 	public int CheckMate()
 	{
 		if (CanMove(Turn)) return 0;
+		//GameOn = false;
 		return InCheck(Turn) ? 1 : 2;
 	}
 
@@ -491,6 +494,7 @@ public class Board
 
 	public void Ready()
 	{
+		//if (!AIOn || Turn != 'B' || !GameOn) return;
 		if (!AIOn || Turn != 'B') return;
 
 		GetDependencies();
